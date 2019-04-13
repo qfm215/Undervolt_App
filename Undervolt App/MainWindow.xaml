@@ -1,0 +1,49 @@
+﻿<Window x:Class="Undervolt_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Undervolt_App"
+        mc:Ignorable="d"
+        Title="MainWindow" Background="#222222" Height="600" Width="400">
+    <Window.Resources>
+        <Image x:Key="CpuOn" Source="/Undervolt App;component/imageButtonCpu0.jpg" />
+        <Image x:Key="CpuOff" Source="/Undervolt App;component/imageButtonCpu1.jpg" />
+        <Image x:Key="GpuOn" Source="/Undervolt App;component/imageButtonGpu0.jpg" />
+        <Image x:Key="GpuOff" Source="/Undervolt App;component/imageButtonGpu1.jpg" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top">
+            <Image Source="processor-chip-icon2.png" Width="100" Height="100" Margin="0,30,0,0"/>
+            <TextBlock x:Name="MainTitle" TextAlignment="Center" FontSize="36" Foreground="White" TextWrapping="Wrap" Text="Undervolt App"/>
+        </Grid>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="CpuTitle" TextAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap" Text="Cpu Undervolt" />
+            <Button Name="Cpu" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="140" Height="65" Margin="0,30,0,0" Click="ClickButtonCpu">
+                <Image Source="imageButtonCpu1.jpg" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Name="GpuTitle" TextAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap" Text="Gpu Undervolt" />
+            <Button Name="Gpu" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="140" Height="65" Margin="0,30,0,0" Click="ClickButtonGpu">
+                <Image Source="imageButtonCpu1.jpg" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Name="Update" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="40" Height="40" Margin="0,30,0,0" Click="ClickButtonUpdate">
+                <Image Source="/Undervolt App;component/updateButton.png" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

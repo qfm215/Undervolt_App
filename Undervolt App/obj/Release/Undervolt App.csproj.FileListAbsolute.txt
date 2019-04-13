@@ -1,0 +1,15 @@
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\bin\Release\Undervolt App.exe.config
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\bin\Release\Undervolt App.exe
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\bin\Release\Undervolt App.pdb
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\MainWindow.g.cs
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\App.g.cs
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App_MarkupCompile.cache
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App_MarkupCompile.lref
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\MainWindow.baml
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.g.resources
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt_App.Properties.Resources.resources
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.csproj.GenerateResource.cache
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.csproj.CoreCompileInputs.cache
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.exe
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.pdb
+C:\Users\quent\source\repos\Undervolt App\Undervolt App\obj\Release\Undervolt App.csprojAssemblyReference.cache
