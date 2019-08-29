@@ -21,10 +21,9 @@ namespace Undervolt_App
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool cpuState;
-        bool gpuState;
+        string clientLoc = "C:/Program Files (x86)/Intel/Intel(R) Extreme Tuning Utility Old/Client/XtuCLI.exe";
 
-        private bool getOffsetInfo(Button button, string[] lines, string find, int index)
+        private bool getOffsetInfo(string[] lines, string find, int index)
         {
             foreach (string line in lines)
             {
@@ -32,7 +31,6 @@ namespace Undervolt_App
                 {
                     if (line[index] == '-')
                     {
-                        button.Content = FindResource(button.Name + "On");
                         return (true);
                     }
                     return (false);
@@ -55,7 +53,7 @@ namespace Undervolt_App
             proc.WaitForExit();
 
             proc = new Process();
-            proc.StartInfo.FileName = "C:/Program Files (x86)/Intel/Intel(R) Extreme Tuning Utility/Client/XtuCLI.exe";
+            proc.StartInfo.FileName = clientLoc;
             proc.StartInfo.Arguments = "-i tuning";
 
             proc.Start();
@@ -63,58 +61,38 @@ namespace Undervolt_App
 
             string[] lines = System.IO.File.ReadAllLines(@"C:\XTU_xmlFiles\Tuning.txt");
 
-            Button cpuButton = this.FindName("Cpu") as Button;
-            Button gpuButton = this.FindName("Gpu") as Button;
-
-            cpuState = getOffsetInfo(cpuButton, lines, "Core Voltage Offset", 44);
-            gpuState = getOffsetInfo(gpuButton, lines, "Processor Graphics Voltage Offset", 47);
+            Cpu_Checkbox.IsChecked = getOffsetInfo(lines, "Core Voltage Offset", 44);
+            Gpu_Checkbox.IsChecked = getOffsetInfo(lines, "Processor Graphics Voltage Offset", 47);
         }
 
         private void runXtu(string id, string offset)
         {
             var proc = new Process();
-            proc.StartInfo.FileName = "C:/Program Files (x86)/Intel/Intel(R) Extreme Tuning Utility/Client/XtuCLI.exe";
+            proc.StartInfo.FileName = clientLoc;
             proc.StartInfo.Arguments = "-t -id " + id + " -v " + offset;
 
             proc.Start();
             proc.WaitForExit();
         }
 
-        private void ClickButtonCpu(object sender, RoutedEventArgs E)
+        private void Cpu_Checked(object sender, RoutedEventArgs e)
         {
-            Image newImg = new Image();
-            Button snd = (Button)sender;
-            if (cpuState == true)
-            {
-                runXtu("34", "0");
-                cpuState = false;
-                snd.Content = FindResource("CpuOff");
-            }
-            else
-            {
-                runXtu("34", "-120");
-                cpuState = true;
-                snd.Content = FindResource("CpuOn");
-            }
+            runXtu("34", "-120");
         }
 
-        private void ClickButtonGpu(object sender, RoutedEventArgs E)
+        private void Cpu_Unchecked(object sender, RoutedEventArgs e)
         {
-            Image newImg = new Image();
-            Button snd = (Button)sender;
+            runXtu("34", "0");
+        }
 
-            if (gpuState == true)
-            {
-                runXtu("83", "0");
-                gpuState = false;
-                snd.Content = FindResource("GpuOff");
-            }
-            else
-            {
-                runXtu("83", "-75");
-                gpuState = true;
-                snd.Content = FindResource("GpuOn");
-            }
+        private void Gpu_Checked(object sender, RoutedEventArgs e)
+        {
+            runXtu("83", "-75");
+        }
+
+        private void Gpu_Unchecked(object sender, RoutedEventArgs e)
+        {
+            runXtu("83", "0");
         }
 
         private void ClickButtonUpdate(object sender, RoutedEventArgs E)

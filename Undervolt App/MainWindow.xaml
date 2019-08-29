@@ -5,12 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Undervolt_App"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#222222" Height="600" Width="400">
+        Title="MainWindow" Background="#222222" Height="550" Width="330">
     <Window.Resources>
-        <Image x:Key="CpuOn" Source="/Undervolt App;component/imageButtonCpu0.jpg" />
-        <Image x:Key="CpuOff" Source="/Undervolt App;component/imageButtonCpu1.jpg" />
-        <Image x:Key="GpuOn" Source="/Undervolt App;component/imageButtonGpu0.jpg" />
-        <Image x:Key="GpuOff" Source="/Undervolt App;component/imageButtonGpu1.jpg" />
+        <Style x:Key="CheckRadioFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="0,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SliderCheckBox" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="StoryboardIsChecked">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CheckFlag">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="21"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Key="StoryboardIsCheckedOff">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CheckFlag">
+                                    <EasingDoubleKeyFrame KeyTime="0" Value="21"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <BulletDecorator Background="Transparent" SnapsToDevicePixels="true">
+                            <BulletDecorator.Bullet>
+                                <Border x:Name="ForegroundPanel" BorderThickness="1" Width="52" Height="30" CornerRadius="10">
+                                    <Canvas>
+                                        <Border Background="White" x:Name="CheckFlag" CornerRadius="10" VerticalAlignment="Center" BorderThickness="1" Width="30" Height="29" RenderTransformOrigin="0.5,0.5">
+                                            <Border.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </Border.RenderTransform>
+                                            <Border.Effect>
+                                                <DropShadowEffect ShadowDepth="1" Direction="180" />
+                                            </Border.Effect>
+                                        </Border>
+                                    </Canvas>
+                                </Border>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource CheckRadioFocusVisual}"/>
+                                <Setter Property="Padding" Value="4,0,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="ForegroundPanel" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="BeginStoryboardCheckedTrue" Storyboard="{StaticResource StoryboardIsChecked}" />
+                                    <RemoveStoryboard BeginStoryboardName="BeginStoryboardCheckedFalse" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="ForegroundPanel" Property="Background" Value="Gray" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="BeginStoryboardCheckedFalse" Storyboard="{StaticResource StoryboardIsCheckedOff}" />
+                                    <RemoveStoryboard BeginStoryboardName="BeginStoryboardCheckedTrue" />
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -28,16 +103,12 @@
 
         <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Name="CpuTitle" TextAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap" Text="Cpu Undervolt" />
-            <Button Name="Cpu" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="140" Height="65" Margin="0,30,0,0" Click="ClickButtonCpu">
-                <Image Source="imageButtonCpu1.jpg" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            </Button>
+            <CheckBox Name="Cpu_Checkbox" Margin="0,40,0,0" HorizontalAlignment="Center" Style="{DynamicResource SliderCheckBox}" Checked="Cpu_Checked" Unchecked="Cpu_Unchecked"/>
         </Grid>
 
         <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Name="GpuTitle" TextAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap" Text="Gpu Undervolt" />
-            <Button Name="Gpu" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="140" Height="65" Margin="0,30,0,0" Click="ClickButtonGpu">
-                <Image Source="imageButtonCpu1.jpg" Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            </Button>
+            <CheckBox Name="Gpu_Checkbox" Margin="0,40,0,0" HorizontalAlignment="Center" Style="{DynamicResource SliderCheckBox}" Checked="Gpu_Checked" Unchecked="Gpu_Unchecked"/>
         </Grid>
 
         <Grid Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">

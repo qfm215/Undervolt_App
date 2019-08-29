@@ -98,12 +98,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imageButtonCpu0.jpg" />
-    <Resource Include="imageButtonCpu1.jpg" />
-    <Resource Include="imageButtonGpu0.jpg" />
-    <Resource Include="imageButtonGpu1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="processor-chip-icon.ico" />
   </ItemGroup>
   <ItemGroup>
