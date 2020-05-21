@@ -77,7 +77,7 @@ namespace Undervolt_App
 
         private void Cpu_Checked(object sender, RoutedEventArgs e)
         {
-            runXtu("34", "-120");
+            runXtu("34", "-100");
         }
 
         private void Cpu_Unchecked(object sender, RoutedEventArgs e)
@@ -87,7 +87,7 @@ namespace Undervolt_App
 
         private void Gpu_Checked(object sender, RoutedEventArgs e)
         {
-            runXtu("83", "-75");
+            runXtu("83", "-50");
         }
 
         private void Gpu_Unchecked(object sender, RoutedEventArgs e)
